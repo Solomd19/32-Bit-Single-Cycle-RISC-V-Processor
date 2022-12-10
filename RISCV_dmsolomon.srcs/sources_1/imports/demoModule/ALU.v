@@ -1,15 +1,15 @@
 `timescale 1ns / 1ns
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Worcester Polytechnic Institute
+// Engineer: Drew Solomon 
 // 
 // Create Date: 10/31/2022 08:29:23 AM
 // Design Name: 
-// Module Name: 
-// Project Name: RISC-V Single Cycle Processor
+// Module Name: ALU
+// Project Name: RISCV_dmsolomon
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: Performs ALU operations
 // 
 // Dependencies: 
 // 
@@ -21,24 +21,24 @@
 
 module ALU(A, B, opcode, Y, zero);
   
-  input signed [31:0] A;          // Data A
-  input signed [31:0] B;          // Data B
-  input [4:0] opcode;              // Operation Code
+    input signed [31:0] A; // Operand A
+    input signed [31:0] B; // Operand B
+    input [4:0] opcode; // Operation code
   
-  output wire signed [31:0] Y;    // output of A B compute result
-  output zero;                    // flag indicate the output is zero
+    output wire signed [31:0] Y; // Output of ALU operation
+    output zero; // Flag high if ALU output is zero
   
-  wire unsignedA;
-  wire unsignedB;
+    wire unsignedA; // Unsigned version of Operand A
+    wire unsignedB; // Unsigned version of Operand B
   
-  //Make unsigned version of A and B for unsigned ops
-  assign unsignedA = A;
-  assign unsignedB = B;
+    //Make unsigned version of A and B for unsigned ops
+    assign unsignedA = A;
+    assign unsignedB = B;
 
-  assign zero = (Y == 32'b0 || (opcode == 5'b01000 & Y == 1'b1)) ? 1'b1 : 1'b0;
-  // ... zero generate logic
+    assign zero = (Y == 32'b0 || (opcode == 5'b01000 & Y == 1'b1)) ? 1'b1 : 1'b0;
 
-  assign Y = (opcode == 5'b00000) ? A + B: // ADD
+    // Perform operation with operands A and B depending on opcode value and assign to Y
+    assign Y = (opcode == 5'b00000) ? A + B: // ADD
              (opcode == 5'b10000) ? A - B: // SUB
              (opcode == 5'b01000) ? ((A - B == 0) ? 1'b1 : A - B): // SUB w/ zero
              (opcode == 5'b01001) ? A * B: // MUL
@@ -50,6 +50,5 @@ module ALU(A, B, opcode, Y, zero);
              (opcode == 5'b00110) ? A | B: // OR
              (opcode == 5'b00111) ? A & B: // AND
                                     32'b0;
-  // ... design the rest ALU function 
     
 endmodule

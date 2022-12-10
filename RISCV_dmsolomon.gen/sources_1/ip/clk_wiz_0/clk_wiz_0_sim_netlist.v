@@ -1,14 +1,14 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-// Date        : Tue Nov 15 20:21:04 2022
-// Host        : DESKTOP-55DQIAJ running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim {c:/Users/Drew
-//               Solomon/Desktop/RISCV_dmsolomon/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v}
+// Date        : Fri Dec  9 18:06:10 2022
+// Host        : DrewXPS15 running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim -rename_top clk_wiz_0 -prefix
+//               clk_wiz_0_ clk_wiz_0_sim_netlist.v
 // Design      : clk_wiz_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
-// Device      : xc7k70tfbv676-1
+// Device      : xc7a200tfbg676-2
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
@@ -34,7 +34,7 @@ module clk_wiz_0
   wire locked;
   wire reset;
 
-  clk_wiz_0_clk_wiz inst
+  clk_wiz_0_clk_wiz_0_clk_wiz inst
        (.clk_in1(clk_in1),
         .clk_out1(clk_out1),
         .clk_out2(clk_out2),
@@ -43,7 +43,7 @@ module clk_wiz_0
         .reset(reset));
 endmodule
 
-module clk_wiz_0_clk_wiz
+module clk_wiz_0_clk_wiz_0_clk_wiz
    (clk_out1,
     clk_out2,
     clk_out3,
@@ -112,22 +112,22 @@ module clk_wiz_0_clk_wiz
   (* BOX_TYPE = "PRIMITIVE" *) 
   MMCME2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT_F(10.000000),
+    .CLKFBOUT_MULT_F(50.000000),
     .CLKFBOUT_PHASE(0.000000),
     .CLKFBOUT_USE_FINE_PS("FALSE"),
-    .CLKIN1_PERIOD(10.000000),
+    .CLKIN1_PERIOD(50.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(10.000000),
-    .CLKOUT0_DUTY_CYCLE(0.500000),
+    .CLKOUT0_DIVIDE_F(50.000000),
+    .CLKOUT0_DUTY_CYCLE(0.330000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),
-    .CLKOUT1_DIVIDE(10),
-    .CLKOUT1_DUTY_CYCLE(0.500000),
-    .CLKOUT1_PHASE(45.000000),
+    .CLKOUT1_DIVIDE(50),
+    .CLKOUT1_DUTY_CYCLE(0.330000),
+    .CLKOUT1_PHASE(119.700000),
     .CLKOUT1_USE_FINE_PS("FALSE"),
-    .CLKOUT2_DIVIDE(10),
-    .CLKOUT2_DUTY_CYCLE(0.500000),
-    .CLKOUT2_PHASE(90.000000),
+    .CLKOUT2_DIVIDE(50),
+    .CLKOUT2_DUTY_CYCLE(0.330000),
+    .CLKOUT2_PHASE(240.300000),
     .CLKOUT2_USE_FINE_PS("FALSE"),
     .CLKOUT3_DIVIDE(1),
     .CLKOUT3_DUTY_CYCLE(0.500000),

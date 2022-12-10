@@ -73,7 +73,7 @@ OPTRACE "blk_mem_gen_0_synth_1" START { ROLLUP_AUTO }
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
-create_project -in_memory -part xc7k70tfbv676-1
+create_project -in_memory -part xc7a200tfbg676-2
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
@@ -84,6 +84,7 @@ set_property parent.project_path {C:/Users/Drew Solomon/Desktop/RISCV_dmsolomon/
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
+set_property board_part xilinx.com:ac701:part0:1.4 [current_project]
 set_property ip_output_repo {c:/Users/Drew Solomon/Desktop/RISCV_dmsolomon/RISCV_dmsolomon.cache/ip} [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
@@ -112,7 +113,7 @@ if { $cacheID == "" } {
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top blk_mem_gen_0 -part xc7k70tfbv676-1 -mode out_of_context
+synth_design -top blk_mem_gen_0 -part xc7a200tfbg676-2 -mode out_of_context
 OPTRACE "synth_design" END { }
 OPTRACE "Write IP Cache" START { }
 

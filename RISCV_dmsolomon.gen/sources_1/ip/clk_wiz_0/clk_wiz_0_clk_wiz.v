@@ -56,14 +56,14 @@
 //  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
-// clk_out1__100.00000______0.000______50.0______130.958_____98.575
-// clk_out2__100.00000_____45.000______50.0______130.958_____98.575
-// clk_out3__100.00000_____90.000______50.0______130.958_____98.575
+// clk_out1__20.00000______0.000______33.0______382.942____301.005
+// clk_out2__20.00000____119.700______33.0______382.942____301.005
+// clk_out3__20.00000____240.300______33.0______382.942____301.005
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
 //----------------------------------------------------------------------------
-// __primary_________100.000____________0.010
+// __primary______________20____________0.010
 
 `timescale 1ps/1ps
 
@@ -130,22 +130,22 @@ wire clk_in2_clk_wiz_0;
     .COMPENSATION         ("ZHOLD"),
     .STARTUP_WAIT         ("FALSE"),
     .DIVCLK_DIVIDE        (1),
-    .CLKFBOUT_MULT_F      (10.000),
+    .CLKFBOUT_MULT_F      (50.000),
     .CLKFBOUT_PHASE       (0.000),
     .CLKFBOUT_USE_FINE_PS ("FALSE"),
-    .CLKOUT0_DIVIDE_F     (10.000),
+    .CLKOUT0_DIVIDE_F     (50.000),
     .CLKOUT0_PHASE        (0.000),
-    .CLKOUT0_DUTY_CYCLE   (0.500),
+    .CLKOUT0_DUTY_CYCLE   (0.330),
     .CLKOUT0_USE_FINE_PS  ("FALSE"),
-    .CLKOUT1_DIVIDE       (10),
-    .CLKOUT1_PHASE        (45.000),
-    .CLKOUT1_DUTY_CYCLE   (0.500),
+    .CLKOUT1_DIVIDE       (50),
+    .CLKOUT1_PHASE        (119.700),
+    .CLKOUT1_DUTY_CYCLE   (0.330),
     .CLKOUT1_USE_FINE_PS  ("FALSE"),
-    .CLKOUT2_DIVIDE       (10),
-    .CLKOUT2_PHASE        (90.000),
-    .CLKOUT2_DUTY_CYCLE   (0.500),
+    .CLKOUT2_DIVIDE       (50),
+    .CLKOUT2_PHASE        (240.300),
+    .CLKOUT2_DUTY_CYCLE   (0.330),
     .CLKOUT2_USE_FINE_PS  ("FALSE"),
-    .CLKIN1_PERIOD        (10.000))
+    .CLKIN1_PERIOD        (50.000))
   mmcm_adv_inst
     // Output clocks
    (

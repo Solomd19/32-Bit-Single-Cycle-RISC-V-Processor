@@ -1,115 +1,188 @@
 `timescale 1ns/1ns
+//////////////////////////////////////////////////////////////////////////////////
+// Company: Worcester Polytechnic Institute
+// Engineer: Drew Solomon 
+// 
+// Create Date: 10/31/2022 08:29:23 AM
+// Design Name: 
+// Module Name: lab505
+// Project Name: RISCV_dmsolomon
+// Target Devices: 
+// Tool Versions: 
+// Description: Top module of RISCV_dmsolomon
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
 module lab505(CLOCK_20);
-   input CLOCK_20;
-   // You need to set it as follow when implementation your design
-   
-   // MMCM
-   (* DONT_TOUCH = "TRUE" *)wire 					clk_0; //PC
-   (* DONT_TOUCH = "TRUE" *)wire 					clk_1; //Mem access
-   (* DONT_TOUCH = "TRUE" *)wire 					clk_2; //Register writeback
-   (* DONT_TOUCH = "TRUE" *)wire 					lock;
-   (* DONT_TOUCH = "TRUE" *)wire 					reset;
-   
-   
-   // PC - your PC may need
-    (* DONT_TOUCH = "TRUE" *)reg  [10:0] 		   PC;        // PC current
-    (* DONT_TOUCH = "TRUE" *)wire [10:0]			PC_next;   // PC next to be latched
-    (* DONT_TOUCH = "TRUE" *)wire [10:0]			PC_plus;   // PC + 4
-    (* DONT_TOUCH = "TRUE" *)wire [10:0]			PC_offset; // PC offset for branching
-	(* DONT_TOUCH = "TRUE" *)wire 					to_branch; // branch condition
+    input CLOCK_20; // Input clock of at least 20MHz
     
-    (* DONT_TOUCH = "TRUE" *)wire run;
+    // Wire Declarations
+   
+    // MMCM (Clock Module)
+    (* DONT_TOUCH = "TRUE" *)wire clk_0; // Triggers PC updates
+    (* DONT_TOUCH = "TRUE" *)wire clk_1; // Triggers RAM access updates
+    (* DONT_TOUCH = "TRUE" *)wire clk_2; // Triggers register writeback if needed
+    (* DONT_TOUCH = "TRUE" *)wire lock; // High when clock signals are stable
+    (* DONT_TOUCH = "TRUE" *)wire reset = 0; // Used to reset clock module
+   
+    // PC - your PC may need
+    (* DONT_TOUCH = "TRUE" *)reg signed [31:0] PC; // Current PC value
+    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	PC_plus; // PC + 4
+    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	br; // PC value to use if branch taken 
+    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	jabs; // PC value to use if JAL op executes
+    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	rind; // PC value to use if JALR op executes
+    (* DONT_TOUCH = "TRUE" *)wire run; // Signifies that PC should continuously update / CPU is running
     
-   // Register ROM
-   (* DONT_TOUCH = "TRUE" *)wire [8:0]				addr;
-   (* DONT_TOUCH = "TRUE" *)wire [31:0]			instr;
+    // Register ROM
+    (* DONT_TOUCH = "TRUE" *)wire [4:0]	addr; // 5 bit register address input
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] instr; // Read data output
    
-   // Control Unit
-   (* DONT_TOUCH = "TRUE" *)wire [1:0]		aluop;			// From ctrl of control_unit.v
-    (* DONT_TOUCH = "TRUE" *)wire     Branch; 
-    (* DONT_TOUCH = "TRUE" *)wire    MemRead;
-    (* DONT_TOUCH = "TRUE" *)wire    MemtoReg; 
-    (* DONT_TOUCH = "TRUE" *)wire    MemWrite; 
-    (* DONT_TOUCH = "TRUE" *)wire    ALUSrc; 
-    (* DONT_TOUCH = "TRUE" *)wire    RegWrite; 
-    (* DONT_TOUCH = "TRUE" *)wire    Jump; 
-    (* DONT_TOUCH = "TRUE" *)wire   halt;
+    // Control Unit
+    (* DONT_TOUCH = "TRUE" *)wire [1:0]	aluop; // Used in determining ALU operation to execute
+    (* DONT_TOUCH = "TRUE" *)wire Branch; // Flag high if branch is to be taken
+    (* DONT_TOUCH = "TRUE" *)wire MemRead; // Flag high if instruction type requires memory read
+    (* DONT_TOUCH = "TRUE" *)wire MemtoReg; // Flag high if instruction type requires memory transfer to register
+    (* DONT_TOUCH = "TRUE" *)wire MemWrite; // Flag high if instruction type requires memory write
+    (* DONT_TOUCH = "TRUE" *)wire ALUSrc; // Flag high if ALU uses immediate as operand 2
+    (* DONT_TOUCH = "TRUE" *)wire RegWrite; // Flag high if instruction type requires register file write
+    (* DONT_TOUCH = "TRUE" *)wire JALflag; // Flag high if executing JAL instruction
+    (* DONT_TOUCH = "TRUE" *)wire JALRflag; // Flag high if executing JALR instruction        
+    (* DONT_TOUCH = "TRUE" *)wire halt; // Flag high once halt instruction has been executed (irreversible without restart)
+    (* DONT_TOUCH = "TRUE" *)wire BEQflag; // Flag high if executing BEQ instruction
+    (* DONT_TOUCH = "TRUE" *)wire BNEflag; // Flag high if executing BNE instruction
    
-   // Immediate Generator
-   (* DONT_TOUCH = "TRUE" *)wire [31:0]			imm_out;
+    // Immediate Generator
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] imm_out; // Output of immediate generator
    
-   // ALU Controller
-   (* DONT_TOUCH = "TRUE" *)wire [4:0]		aluopcode;		// From aluctrl of alu_control.v
+    // ALU Controller
+    (* DONT_TOUCH = "TRUE" *)wire [4:0] aluopcode; // Represents ALU operation to execute
    
-   // ALU
-   (* DONT_TOUCH = "TRUE" *)wire [31:0] 		A;         // ALU input A
-    (* DONT_TOUCH = "TRUE" *)wire [31:0] 		B;         // ALU input B
-    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	Y;			// From a1 of ALU.v
-    (* DONT_TOUCH = "TRUE" *)wire			zero;			// From a1 of ALU.v
+    // ALU
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] A; // Operand A
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] B; // Operand A
+    (* DONT_TOUCH = "TRUE" *)wire signed [31:0]	Y; // Output of ALU operation
+    (* DONT_TOUCH = "TRUE" *)wire zero;	// Flag high if ALU output is zero
    
-   // Register File
-   (* DONT_TOUCH = "TRUE" *)wire [31:0]			rd1;
-    (* DONT_TOUCH = "TRUE" *)wire [31:0]			rd2;
-    (* DONT_TOUCH = "TRUE" *)wire [31:0]			wd;
+    // Register File
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] rd1; // Read data output 1
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] rd2; // Read data output 2
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] wd; // Data to be written, wd = write data
    
-   // RAM
-   (* DONT_TOUCH = "TRUE" *)wire [31:0]			RAMdataout;
-   (* DONT_TOUCH = "TRUE" *)wire ena;
+    // RAM
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] RAMdataout; // Output of RAM read
+    (* DONT_TOUCH = "TRUE" *)wire ena; // RAM read/write enable
     
+//    // MMCM (Clock Module)
+//    wire clk_0; // Triggers PC updates
+//    wire clk_1; // Triggers RAM access updates
+//    wire clk_2; // Triggers register writeback if needed
+//    wire lock; // High when clock signals are stable
+//    wire reset = 0; // Used to reset clock module
+   
+//    // PC - your PC may need
+//    reg signed [7:0] PC; // Current PC value
+//    wire signed [7:0]	PC_plus; // PC + 4
+//    wire signed [7:0]	br; // PC value to use if branch taken 
+//    wire signed [7:0]	jabs; // PC value to use if JAL op executes
+//    wire signed [7:0]	rind; // PC value to use if JALR op executes
+//    wire run; // Signifies that PC should continuously update / CPU is running
+    
+//    // Register ROM
+//    wire [4:0]	addr; // 5 bit register address input
+//    wire [31:0] instr; // Read data output
+   
+//    // Control Unit
+//    wire [1:0]	aluop; // Used in determining ALU operation to execute
+//    wire Branch; // Flag high if branch is to be taken
+//    wire MemRead; // Flag high if instruction type requires memory read
+//    wire MemtoReg; // Flag high if instruction type requires memory transfer to register
+//    wire MemWrite; // Flag high if instruction type requires memory write
+//    wire ALUSrc; // Flag high if ALU uses immediate as operand 2
+//    wire RegWrite; // Flag high if instruction type requires register file write
+//    wire JALflag; // Flag high if executing JAL instruction
+//    wire JALRflag; // Flag high if executing JALR instruction        
+//    wire halt; // Flag high once halt instruction has been executed (irreversible without restart)
+//    wire BEQflag; // Flag high if executing BEQ instruction
+//    wire BNEflag; // Flag high if executing BNE instruction
+   
+//    // Immediate Generator
+//    wire [31:0] imm_out; // Output of immediate generator
+   
+//    // ALU Controller
+//    wire [4:0] aluopcode; // Represents ALU operation to execute
+   
+//    // ALU
+//    wire [31:0] A; // Operand A
+//    wire [31:0] B; // Operand A
+//    wire signed [31:0]	Y; // Output of ALU operation
+//    wire zero;	// Flag high if ALU output is zero
+   
+//    // Register File
+//    wire [31:0] rd1; // Read data output 1
+//    wire [31:0] rd2; // Read data output 2
+//    wire [31:0] wd; // Data to be written, wd = write data
+   
+//    // RAM
+//    wire [31:0] RAMdataout; // Output of RAM read
+//    wire ena; // RAM read/write enable
 
-   // your PC initial is better to be -4 to make sure the first clock will trigger your first instruction
-   initial 
-    PC = -4;
+    // Initialize PC as -4 so it = 0 on first clock tick
+    initial 
+        PC = -4;
 
-	parameter HALT = 7'b1111111;
-
-// design run signal which indicates run and halt
-   assign run = (halt == 1) ? 1'b0 : 1'b1;
+    assign run = (halt == 1) ? 1'b0 : 1'b1;
 
     // ================== MMCM =============================
-    // remember to use your locked signal
     
     clk_wiz_0 clkWiz(
-        .clk_out1(clk_0), //First phase clock
-        .clk_out2(clk_1), //Second phase clock
-        .clk_out3(clk_2), //Third phase clock
+        .clk_out1(clk_0), //First phase clock - PC
+        .clk_out2(clk_1), //Second phase clock - rom file (instruction mem)
+        .clk_out3(clk_2), //Third phase clock - register file
         .reset(reset),
         .locked(lock),
         .clk_in1(CLOCK_20)
     );
     
     // =============== PC =======================
-	always @(posedge clk_0 && lock == 1) begin //Takes first phase clock?
-	  if (run) begin
-         // update your PC
-         PC = PC_plus;
-	  end
+	always @(posedge clk_0 && lock == 1) begin //Takes first phase clock
+	   if (run) begin
+        // update your PC
+         PC <= (Branch) ? br :
+              (JALflag) ? jabs :
+              (JALRflag) ? rind :
+                            PC_plus;
+	   end
 	end
 
-//   // finish your PC design
-      assign PC_plus = PC + 4;
-      //assign PC_offset = ;
-      //assign PC_next = ;
-      //assign to_branch = ;
+    // finish your PC design
+    assign PC_plus = PC + 4; //Used under normal conditions
+    assign br = PC + (imm_out << 1); //Used when a branch condition occurs
+    assign jabs = PC + (imm_out << 1); //Used when a JAL occurs
+    assign rind = rd1 + (imm_out << 1); //Used when a JALR occurs - instr is rs1
       
     // ================== Register ROM =============================
 
-    assign addr = PC / 4;
+    assign addr = PC >> 2;
 
     reg_rom rom1(
         // Inputs
-        .addr(addr[8:0]),
+        .addr(addr[4:0]),
         // Outputs
         .q(instr[31:0])
     );
-//    input [4:0] addr; //5 bit register address input
-//  output [31:0] q;  //read data outputs
     
     // ================ Control Unit =================
     control_unit cu1(
         // Inputs
         .instr(instr[6:0]),
+        .funct3(instr[14:12]),
+        .zero(zero),
         // Outputs
         .aluop(aluop[1:0]), 
         .Branch(Branch), 
@@ -118,19 +191,12 @@ module lab505(CLOCK_20);
         .MemWrite(MemWrite), 
         .ALUSrc(ALUSrc), 
         .RegWrite(RegWrite), 
-        .Jump(Jump), 
-        .halt(halt)
+        .JALflag(JALflag),
+        .JALRflag(JALRflag),
+        .halt(halt),
+        .BEQflag(BEQflag),
+        .BNEflag(BNEflag)
     );
-//    input [6:0] instr, //Rightmost 7 bits of fields
-//	output [1:0] aluop,
-//	output	Branch,
-//	output  MemRead,
-//	output  MemtoReg,
-//	output  MemWrite,
-//	output  ALUSrc,
-//	output  RegWrite,
-//	output  Jump,
-//	output reg halt
 
     // ============== Immediate Generator =============
 
@@ -140,8 +206,6 @@ module lab505(CLOCK_20);
         // Outputs
         .out(imm_out[31:0])
     );
-//       input [31:0] instr; //32 bit instruction
-//   output [31:0] out; //  output reg [31:0] out;
 
    // =================== ALU Controller ============       
     alu_control ac1(
@@ -150,16 +214,13 @@ module lab505(CLOCK_20);
         .aluop(aluop[1:0]),
         // Outputs
         .aluopcode(aluopcode[4:0]));
-//input 		[5:0] instr_split;	// {instr[25] funct7(0), instr[5] op(5), instr[30] funct7(5), instr[14:12] (funct3)}
-//	input 		[1:0] aluop,
-//	output wire 	[4:0] aluopcode
 
    // ================ ALU =================
-   // prepare for A and B
+
    assign A = rd1;
    assign B = (ALUSrc == 1) ? imm_out : rd2;  // 1 = immediate, 0 = rd2
    
-   ALU a1 (/*AUTOINST*/ 
+   ALU a1 (
 	   // Inputs
 	   .A(A[31:0]),
 	   .B(B[31:0]),
@@ -170,16 +231,13 @@ module lab505(CLOCK_20);
    );
 			    
    // ================ Register File =================
-   // prepare your wd data here
-   // .....
-   // ....
-   assign wd = (MemtoReg == 1) ? RAMdataout : Y ;
-
-   // instantiatate your register file
+   
+   assign wd =  (JALflag | JALRflag) ? PC_plus :
+                (MemtoReg == 1) ? RAMdataout : Y ;
 
     reg_file reg1(
         // Inputs
-        .clk(clk_2),
+        .clk(clk_2), //Takes third phase clock
         .wren(RegWrite),
         .rr1(instr[19:15]),
         .rr2(instr[24:20]),
@@ -188,22 +246,17 @@ module lab505(CLOCK_20);
         // Outputs
         .rd1(rd1),
         .rd2(rd2)
-    ); //Takes second phase clock?
-//  input clk, wren; //clock and write enable ports
-//  input [4:0] rr1, rr2, wr; //5 bit register address inputs (2^5 = 32), wr = write register
-//  input [31:0] wd; //data to write, wd = write data
-//  output [31:0] rd1, rd2; //read data outputs
+    );
 	   
-
     // =================== RAM ==========================
 
     assign ena = (MemRead | MemWrite) ? 1'b1 : 1'b0;
 
     blk_mem_gen_0 ram0 (
-        .clka(clk_1), //Takes last phase clock?
+        .clka(clk_1), //Takes second phase clock
         .ena(ena),
         .wea(MemWrite),
-        .addra(Y),
+        .addra(Y[7:0]),
         .dina(rd2),
         .douta(RAMdataout)
     );
