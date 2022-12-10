@@ -22,23 +22,30 @@
 module tb_control_unit();
     reg 	[6:0] instr;
 	wire    [1:0] aluop;
-	wire	Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Jump;
+	wire	Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JALflag, JALRflag, halt;
 
-    control_unit dut(
-	.instr 	(instr),
-    .aluop  (aluop),
-    .Branch (Branch), 
-    .MemRead (MemRead), 
-    .MemtoReg (MemtoReg), 
-    .MemWrite (MemWrite), 
-    .ALUSrc (ALUSrc),
-    .Jump (Jump), 
-    .RegWrite (RegWrite));
+    control_unit cu1(
+        // Inputs
+        .instr(instr[6:0]),
+        .funct3(3'b0),
+        .zero(1'b0),
+        // Outputs
+        .aluop(aluop[1:0]), 
+        .Branch(Branch), 
+        .MemRead(MemRead), 
+        .MemtoReg(MemtoReg), 
+        .MemWrite(MemWrite), 
+        .ALUSrc(ALUSrc), 
+        .RegWrite(RegWrite), 
+        .JALflag(JALflag),
+        .JALRflag(JALRflag),
+        .halt(halt)
+    );
 
 
     initial begin
-        $monitor("%t instr=%b aluop=%b Branch=%b MemRead=%b MemtoReg=%b MemWrite=%b ALUSrc=%b RegWrite=%b Jump=%b", 
-                 $time, instr,aluop,Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Jump);
+        $monitor("%t instr=%b aluop=%b Branch=%b MemRead=%b MemtoReg=%b MemWrite=%b ALUSrc=%b RegWrite=%b JALflag=%b JALRflag=%b halt=%b", 
+                 $time, instr,aluop,Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JALflag, JALRflag, halt);
 
         #0;
         instr = 7'b0110011; // R-type

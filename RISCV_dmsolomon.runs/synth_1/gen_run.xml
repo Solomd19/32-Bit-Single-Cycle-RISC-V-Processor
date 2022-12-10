@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-2" LaunchTime="1670628342" LaunchIncrCheckpoint="$PPRDIR/../CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/utils_1/imports/synth_1/lab505.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-2" LaunchTime="1670711336">
   <File Type="PA-TCL" Name="lab505.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="lab505_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="lab505_reports.tcl"/>
   <File Type="RDS-RDS" Name="lab505.vds"/>
   <File Type="RDS-UTIL" Name="lab505_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="lab505_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="lab505.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="lab505_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="lab505_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">

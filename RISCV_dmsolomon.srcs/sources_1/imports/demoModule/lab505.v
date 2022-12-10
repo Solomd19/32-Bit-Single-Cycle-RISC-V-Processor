@@ -54,8 +54,6 @@ module lab505(CLOCK_20);
     (* DONT_TOUCH = "TRUE" *)wire JALflag; // Flag high if executing JAL instruction
     (* DONT_TOUCH = "TRUE" *)wire JALRflag; // Flag high if executing JALR instruction        
     (* DONT_TOUCH = "TRUE" *)wire halt; // Flag high once halt instruction has been executed (irreversible without restart)
-    (* DONT_TOUCH = "TRUE" *)wire BEQflag; // Flag high if executing BEQ instruction
-    (* DONT_TOUCH = "TRUE" *)wire BNEflag; // Flag high if executing BNE instruction
    
     // Immediate Generator
     (* DONT_TOUCH = "TRUE" *)wire [31:0] imm_out; // Output of immediate generator
@@ -77,60 +75,6 @@ module lab505(CLOCK_20);
     // RAM
     (* DONT_TOUCH = "TRUE" *)wire [31:0] RAMdataout; // Output of RAM read
     (* DONT_TOUCH = "TRUE" *)wire ena; // RAM read/write enable
-    
-//    // MMCM (Clock Module)
-//    wire clk_0; // Triggers PC updates
-//    wire clk_1; // Triggers RAM access updates
-//    wire clk_2; // Triggers register writeback if needed
-//    wire lock; // High when clock signals are stable
-//    wire reset = 0; // Used to reset clock module
-   
-//    // PC - your PC may need
-//    reg signed [7:0] PC; // Current PC value
-//    wire signed [7:0]	PC_plus; // PC + 4
-//    wire signed [7:0]	br; // PC value to use if branch taken 
-//    wire signed [7:0]	jabs; // PC value to use if JAL op executes
-//    wire signed [7:0]	rind; // PC value to use if JALR op executes
-//    wire run; // Signifies that PC should continuously update / CPU is running
-    
-//    // Register ROM
-//    wire [4:0]	addr; // 5 bit register address input
-//    wire [31:0] instr; // Read data output
-   
-//    // Control Unit
-//    wire [1:0]	aluop; // Used in determining ALU operation to execute
-//    wire Branch; // Flag high if branch is to be taken
-//    wire MemRead; // Flag high if instruction type requires memory read
-//    wire MemtoReg; // Flag high if instruction type requires memory transfer to register
-//    wire MemWrite; // Flag high if instruction type requires memory write
-//    wire ALUSrc; // Flag high if ALU uses immediate as operand 2
-//    wire RegWrite; // Flag high if instruction type requires register file write
-//    wire JALflag; // Flag high if executing JAL instruction
-//    wire JALRflag; // Flag high if executing JALR instruction        
-//    wire halt; // Flag high once halt instruction has been executed (irreversible without restart)
-//    wire BEQflag; // Flag high if executing BEQ instruction
-//    wire BNEflag; // Flag high if executing BNE instruction
-   
-//    // Immediate Generator
-//    wire [31:0] imm_out; // Output of immediate generator
-   
-//    // ALU Controller
-//    wire [4:0] aluopcode; // Represents ALU operation to execute
-   
-//    // ALU
-//    wire [31:0] A; // Operand A
-//    wire [31:0] B; // Operand A
-//    wire signed [31:0]	Y; // Output of ALU operation
-//    wire zero;	// Flag high if ALU output is zero
-   
-//    // Register File
-//    wire [31:0] rd1; // Read data output 1
-//    wire [31:0] rd2; // Read data output 2
-//    wire [31:0] wd; // Data to be written, wd = write data
-   
-//    // RAM
-//    wire [31:0] RAMdataout; // Output of RAM read
-//    wire ena; // RAM read/write enable
 
     // Initialize PC as -4 so it = 0 on first clock tick
     initial 
@@ -193,9 +137,7 @@ module lab505(CLOCK_20);
         .RegWrite(RegWrite), 
         .JALflag(JALflag),
         .JALRflag(JALRflag),
-        .halt(halt),
-        .BEQflag(BEQflag),
-        .BNEflag(BNEflag)
+        .halt(halt)
     );
 
     // ============== Immediate Generator =============

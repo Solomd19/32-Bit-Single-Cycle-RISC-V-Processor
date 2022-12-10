@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.runs/synth_1/lab505.tcl"
+  variable script "C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.runs/synth_1/lab505.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,6 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a200tfbg676-2
 
@@ -77,32 +78,32 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.cache/wt} [current_project]
-set_property parent.project_path {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.xpr} [current_project]
+set_property webtalk.parent_dir {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.cache/wt} [current_project]
+set_property parent.project_path {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.xpr} [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part xilinx.com:ac701:part0:1.4 [current_project]
-set_property ip_output_repo {c:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.cache/ip} [current_project]
+set_property ip_output_repo {c:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.cache/ip} [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/ALU.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/alu_control.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/control_unit.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/imm_gen.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/reg_file.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/reg_rom.v}
-  {C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/lab505.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/ALU.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/alu_control.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/control_unit.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/imm_gen.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/reg_file.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/reg_rom.v}
+  {C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/imports/demoModule/lab505.v}
 }
-read_ip -quiet {{C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci}}
-set_property used_in_implementation false [get_files -all {{c:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc}}]
-set_property used_in_implementation false [get_files -all {{c:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc}}]
-set_property used_in_implementation false [get_files -all {{c:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc}}]
+read_ip -quiet {{C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci}}
+set_property used_in_implementation false [get_files -all {{c:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc}}]
+set_property used_in_implementation false [get_files -all {{c:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc}}]
+set_property used_in_implementation false [get_files -all {{c:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc}}]
 
-read_ip -quiet {{C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci}}
-set_property used_in_implementation false [get_files -all {{c:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc}}]
+read_ip -quiet {{C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci}}
+set_property used_in_implementation false [get_files -all {{c:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc}}]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -113,8 +114,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/constrs_1/imports/constrs/time.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/supad/Desktop/CPU V3/RISCV_dmsolomon/RISCV_dmsolomon.srcs/constrs_1/imports/constrs/time.xdc}}]
+read_xdc {{C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/constrs_1/imports/constrs/time.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/Drew Solomon/Desktop/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.srcs/constrs_1/imports/constrs/time.xdc}}]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]

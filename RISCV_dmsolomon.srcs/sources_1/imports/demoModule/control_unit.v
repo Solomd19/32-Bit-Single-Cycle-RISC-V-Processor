@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module control_unit(instr, funct3, zero, aluop, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JALflag, JALRflag, halt, BEQflag, BNEflag);
+module control_unit(instr, funct3, zero, aluop, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JALflag, JALRflag, halt);
 
     input [6:0] instr; // Least significant 7 bits of instruction
     input [2:0] funct3; // Funct3 section of instruction
@@ -35,8 +35,9 @@ module control_unit(instr, funct3, zero, aluop, Branch, MemRead, MemtoReg, MemWr
 	output JALflag; // Flag high if executing JAL instruction
 	output JALRflag; // Flag high if executing JALR instruction
 	output halt; // Flag high once halt instruction has been executed (irreversible without restart)
-	output BEQflag; // Flag high if executing BEQ instruction
-	output BNEflag; // Flag high if executing BNE instruction
+	
+	wire BEQflag; // Flag high if executing BEQ instruction
+	wire BNEflag; // Flag high if executing BNE instruction
 
 assign aluop = (instr == 7'b0110011) ? 2'b10: // R-type
                (instr == 7'b0010011) ? 2'b11: // I-type
