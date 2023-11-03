@@ -1,81 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-2" LaunchTime="1670711336">
-  <File Type="PA-TCL" Name="lab505.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="lab505_drc_synth.rpt"/>
-  <File Type="REPORTS-TCL" Name="lab505_reports.tcl"/>
-  <File Type="RDS-RDS" Name="lab505.vds"/>
-  <File Type="RDS-UTIL" Name="lab505_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="lab505_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="lab505.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="lab505_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="lab505_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xck26-sfvc784-2LV-c" LaunchTime="1699054454">
+  <File Type="PA-TCL" Name="RISCV_32.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="RISCV_32_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="RISCV_32_reports.tcl"/>
+  <File Type="RDS-RDS" Name="RISCV_32.vds"/>
+  <File Type="RDS-UTIL" Name="RISCV_32_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="RISCV_32_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="RISCV_32.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="RISCV_32_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="RISCV_32_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
+    <File Path="$PPRDIR/Design Files/Sources/ALU.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/ALU.v">
+    <File Path="$PPRDIR/Design Files/Sources/alu_control.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/ALU.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/alu_control.v">
+    <File Path="$PPRDIR/Design Files/Sources/control_unit.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/alu_control.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/control_unit.v">
+    <File Path="$PPRDIR/Design Files/Sources/imm_gen.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/control_unit.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/imm_gen.v">
+    <File Path="$PPRDIR/Design Files/Sources/reg_file.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/imm_gen.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/reg_file.v">
+    <File Path="$PPRDIR/Design Files/Sources/reg_rom.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/reg_file.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/reg_rom.v">
+    <File Path="$PPRDIR/Design Files/Sources/RISCV_32.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/reg_rom.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/imports/demoModule/lab505.v">
-      <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/demoModule/lab505.v"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -83,34 +62,25 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="lab505"/>
+      <Option Name="TopModule" Val="RISCV_32"/>
     </Config>
   </FileSet>
-  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
     <Filter Type="Constrs"/>
-    <File Path="$PSRCDIR/constrs_1/imports/constrs/time.xdc">
+    <File Path="$PSRCDIR/constrs_1/imports/Constraints/time.xdc">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../ECE505F22/constrs/time.xdc"/>
-        <Attr Name="ImportTime" Val="1668369345"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/Design Files/Constraints/time.xdc"/>
+        <Attr Name="ImportTime" Val="1699040503"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <Config>
-      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/imports/constrs/time.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
-  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
     <Filter Type="Utils"/>
-    <File Path="$PSRCDIR/utils_1/imports/synth_1/lab505.dcp">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedInSteps" Val="synth_1"/>
-        <Attr Name="AutoDcp" Val="1"/>
-      </FileInfo>
-    </File>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
@@ -122,4 +92,5 @@
     </Step>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="blk_mem_gen_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="clk_wiz_0"/>
 </GenRun>
