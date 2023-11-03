@@ -4,29 +4,29 @@ This processor is currently rated to run at 20MHz, with potential for further op
 
 Instructions Implemented:
 
-R-Type:\
-- ADD - Add\
-- SUB - Subtract\
-- MUL - Multiply\
-- AND - Bitwise And\
-- OR - Bitwise Or\
+R-Type:
+- ADD - Add
+- SUB - Subtract
+- MUL - Multiply
+- AND - Bitwise And
+- OR - Bitwise Or
 - SLLI - Shift Left Logical Immediate
 
-I-Type:\
-- ADDI - Add Immediate\
+I-Type:
+- ADDI - Add Immediate
 - JALR - Jump and Link Register
 
-L-Type:\
+L-Type:
 - LW - Load Word
 
-S-Type:\
+S-Type:
 - SW - Save Word
 
-B-Type:\
-- BEQ - Branch if Equal\
+B-Type:
+- BEQ - Branch if Equal
 - BNE - Branch if Not Equal
 
-J-Type:\
+J-Type:
 - JAL - Jump and Link
 
 For generating clocking IP:
