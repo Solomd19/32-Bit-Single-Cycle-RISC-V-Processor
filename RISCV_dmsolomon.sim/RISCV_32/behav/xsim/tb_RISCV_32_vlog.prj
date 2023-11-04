@@ -1,0 +1,19 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0_2" \
+"../../../../RISCV_dmsolomon.gen/sources_1/ip/blk_mem_gen_0_3/sim/blk_mem_gen_0.v" \
+"../../../../RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0_clk_wiz.v" \
+"../../../../RISCV_dmsolomon.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.v" \
+"../../../../Design Files/Sources/ALU.v" \
+"../../../../Design Files/Sources/RISCV_32.v" \
+"../../../../Design Files/Sources/alu_control.v" \
+"../../../../Design Files/Sources/control_unit.v" \
+"../../../../Design Files/Sources/imm_gen.v" \
+"../../../../Design Files/Sources/reg_file.v" \
+"../../../../Design Files/Sources/reg_rom.v" \
+"../../../../Design Files/Simulation/tb_RISCV_32.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

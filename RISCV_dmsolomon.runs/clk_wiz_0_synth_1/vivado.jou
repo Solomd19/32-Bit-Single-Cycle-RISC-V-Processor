@@ -1,13 +1,14 @@
 #-----------------------------------------------------------
-# Vivado v2021.2 (64-bit)
-# SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
-# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
-# Start of session at: Tue Nov 15 20:20:37 2022
-# Process ID: 27052
-# Current directory: C:/Users/Drew Solomon/Desktop/RISCV_dmsolomon/RISCV_dmsolomon.runs/clk_wiz_0_synth_1
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Sat Nov  4 15:39:26 2023
+# Process ID: 7784
+# Current directory: C:/Users/Drew Solomon/Documents/GitHub/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.runs/clk_wiz_0_synth_1
 # Command line: vivado.exe -log clk_wiz_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source clk_wiz_0.tcl
-# Log file: C:/Users/Drew Solomon/Desktop/RISCV_dmsolomon/RISCV_dmsolomon.runs/clk_wiz_0_synth_1/clk_wiz_0.vds
-# Journal file: C:/Users/Drew Solomon/Desktop/RISCV_dmsolomon/RISCV_dmsolomon.runs/clk_wiz_0_synth_1\vivado.jou
-# Running On: DESKTOP-55DQIAJ, OS: Windows, CPU Frequency: 3800 MHz, CPU Physical cores: 16, Host memory: 34282 MB
+# Log file: C:/Users/Drew Solomon/Documents/GitHub/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.runs/clk_wiz_0_synth_1/clk_wiz_0.vds
+# Journal file: C:/Users/Drew Solomon/Documents/GitHub/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.runs/clk_wiz_0_synth_1\vivado.jou
+# Running On: DESKTOP-55DQIAJ, OS: Windows, CPU Frequency: 3800 MHz, CPU Physical cores: 16, Host memory: 68642 MB
 #-----------------------------------------------------------
 source clk_wiz_0.tcl -notrace
