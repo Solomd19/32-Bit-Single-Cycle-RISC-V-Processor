@@ -1,6 +1,12 @@
 32-Bit Single Cycle RISC-V Processor Implemented using Verilog
 
-This processor is currently rated to run at 20MHz, with potential for further optimization.
+This processor is currently rated to run at 64MHz at maximum. Originally implemented on a Basys 3 FPGA, performance results may vary depending on hardware.
+
+NOTE: Vivado project is currently at version 2023.1, you will need this version or later to open the project.
+
+Test Programs Included:
+- Factorial 6 Algorithm
+- Fibonacci Sequence Algorithm
 
 Instructions Implemented:
 
@@ -31,9 +37,10 @@ J-Type:
 
 For generating clocking IP:
 - Use Xilinx Clocking Wizard IP
-- clk_out0: 20MHz, 0 deg phase shift
-- clk_out1: 20MHz, 120 deg phase shift
-- clk_out2: 20MHz, 240 deg phase shift
+- Use frequency synthesis & phase alignment
+- clk_in1: Any system clock that is the frequency of the output or higher
+- clk_out0: 64MHz max, 0 deg phase shift, BUFG output
+- clk_out1: Same freq as clk_out1, 180 deg phase shift, BUFG output
 
 For generating RAM IP:
 - Use Xilinx Block Memory Generator IP
