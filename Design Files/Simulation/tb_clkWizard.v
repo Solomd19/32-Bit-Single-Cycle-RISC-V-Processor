@@ -25,7 +25,7 @@ module tb_clkWizard();
     reg clk = 1;
     reg reset = 0;
 
-    wire clk_0, clk_1, clk_2;
+    wire clk_0, clk_1;
     wire locked;
 
     always
@@ -34,7 +34,6 @@ module tb_clkWizard();
     clk_wiz_0 clkWiz(
         .clk_out1(clk_0),
         .clk_out2(clk_1),
-        .clk_out3(clk_2),
         .reset(reset),
         .locked(locked),
         .clk_in1(clk)

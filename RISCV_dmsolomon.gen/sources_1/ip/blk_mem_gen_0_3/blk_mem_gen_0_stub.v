@@ -2,13 +2,13 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-// Date        : Fri Nov  3 18:15:54 2023
+// Date        : Sat Nov  4 15:04:50 2023
 // Host        : DESKTOP-55DQIAJ running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub {c:/Users/Drew
-//               Solomon/Documents/GitHub/32-Bit-Single-Cycle-RISC-V-Processor/RISCV_dmsolomon.gen/sources_1/ip/blk_mem_gen_0_3/blk_mem_gen_0_stub.v}
+// Command     : write_verilog -force -mode synth_stub -rename_top blk_mem_gen_0 -prefix
+//               blk_mem_gen_0_ blk_mem_gen_0_stub.v
 // Design      : blk_mem_gen_0
 // Purpose     : Stub declaration of top-level module interface
-// Device      : xck26-sfvc784-2LV-c
+// Device      : xc7a35tcpg236-1
 // --------------------------------------------------------------------------------
 
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.

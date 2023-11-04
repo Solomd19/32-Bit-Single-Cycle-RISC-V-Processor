@@ -23,20 +23,14 @@
 module tb_RISCV_32();
 
     reg clk = 0;
-    reg reset = 1;
 
     always
         #1 clk = ~clk;
         
     RISCV_32 RISCV_32_inst(
-        .clk(clk),
-        .reset(reset)
+        .clk(clk)
     );
 
-    initial begin
-        reset = 1;
-        #2;
-        reset = 0;
-    end
+    // Test just lets the module run for a while...
     
 endmodule

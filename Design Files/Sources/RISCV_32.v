@@ -20,20 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module RISCV_32(
-    clk,
-
-    reset
+    clk
 );
     // Module I/O
     input clk; // Input clock of at least 20MHz
-    input reset; // Used to reset clock wizard and reg_file
+    
+    reg reset = 1; // Used to reset clock wizard and reg_file
 
     // Module Internal Signals
    
     // MMCM (Clock Module)
-    wire clk_0; // Triggers PC updates
+    wire clk_0; // Triggers PC updates & reg file writes
     wire clk_1; // Triggers RAM access updates
-    wire clk_2; // Triggers register writeback if needed
     wire locked; // High when clock signals are stable
    
     // PC - your PC may need
@@ -86,9 +84,8 @@ module RISCV_32(
     // ================== MMCM =============================
     
     clk_wiz_0 clk_wiz_inst(
-        .clk_out1(clk_0), // First phase clock - PC
+        .clk_out1(clk_0), // First phase clock - PC & reg_file
         .clk_out2(clk_1), // Second phase clock - rom file (instruction mem)
-        .clk_out3(clk_2), // Third phase clock - register file
         .reset(reset),
         .locked(locked),
         .clk_in1(clk)
@@ -96,13 +93,14 @@ module RISCV_32(
     
     // =============== PC =======================
 	always @(posedge clk_0) begin //Takes first phase clock
-	   if (run & locked == 1) begin
-        // update your PC
-         PC <= (Branch) ? br :
-              (JALflag) ? jabs :
-              (JALRflag) ? rind :
-                            PC_plus;
-	   end
+        reset <= 0;
+	    if (run & locked == 1) begin
+            // update your PC
+            PC <=   (Branch) ? br :
+                    (JALflag) ? jabs :
+                    (JALRflag) ? rind :
+                                PC_plus;
+	    end
 	end
 
     assign PC_plus = PC + 4; //Used under normal conditions
@@ -155,22 +153,23 @@ module RISCV_32(
         .instr_split({instr[25], instr[5], instr[30], instr[14:12]}), 
         .aluop(aluop[1:0]),
         // Outputs
-        .aluopcode(aluopcode[4:0]));
+        .aluopcode(aluopcode[4:0])
+    );
 
    // ================ ALU =================
 
    assign opA = rd1;
    assign opB = (ALUSrc == 1) ? imm_out : rd2;  // 1 = immediate, 0 = rd2
    
-   ALU ALU_inst (
-	   // Inputs
-	   .opA(opA[31:0]),
-	   .opB(opB[31:0]),
-	   .opcode(aluopcode[4:0]),	 // Templated
-	   // Outputs
-	   .alu_out(alu_out[31:0]),
-	   .zero(zero)
-   );
+    ALU ALU_inst (
+        // Inputs
+        .opA(opA[31:0]),
+        .opB(opB[31:0]),
+        .opcode(aluopcode[4:0]),	// Templated
+        // Outputs
+        .alu_out(alu_out[31:0]),
+        .zero(zero)
+    );
 			    
    // ================ Register File =================
    
@@ -180,7 +179,7 @@ module RISCV_32(
 
     reg_file reg_file_inst(
         // Inputs
-        .clk(clk_2), //Takes third phase clock
+        .clk(clk_0), //Takes first phase clock
         .reset(reset),
         .wr_en(RegWrite),
         .rr1(instr[19:15]),
@@ -196,7 +195,7 @@ module RISCV_32(
 
     assign ena = (MemRead | MemWrite) ? 1'b1 : 1'b0;
 
-    blk_mem_gen_0 blk_mem_gen_inst (
+    blk_mem_gen_0 blk_mem_gen_inst(
         .clka(clk_1), //Takes second phase clock
         .ena(ena),
         .wea(MemWrite),

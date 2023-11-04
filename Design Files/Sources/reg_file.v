@@ -64,7 +64,7 @@ module reg_file(
             end
         end
         else begin
-            if(wr_en == 1)begin
+            if (wr_en == 1) begin
                 file[wr] <= wd;
             end
             file[0] <= 32'h0; // Register x0 should always = 0!

@@ -77,8 +77,8 @@ input wire [31 : 0] dina;
 output wire [31 : 0] douta;
 
   blk_mem_gen_v8_4_6 #(
-    .C_FAMILY("zynquplus"),
-    .C_XDEVICEFAMILY("zynquplus"),
+    .C_FAMILY("artix7"),
+    .C_XDEVICEFAMILY("artix7"),
     .C_ELABORATION_DIR("./"),
     .C_INTERFACE_TYPE(0),
     .C_AXI_TYPE(1),
@@ -151,7 +151,7 @@ output wire [31 : 0] douta;
     .C_DISABLE_WARN_BHV_RANGE(0),
     .C_COUNT_36K_BRAM("0"),
     .C_COUNT_18K_BRAM("1"),
-    .C_EST_POWER_SUMMARY("Estimated Power for IP     :     2.441648 mW")
+    .C_EST_POWER_SUMMARY("Estimated Power for IP     :     3.53845 mW")
   ) inst (
     .clka(clka),
     .rsta(1'D0),
